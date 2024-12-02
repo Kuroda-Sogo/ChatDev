@@ -1,0 +1,9 @@
+# Tetris Game Dependencies
+# This file specifies the dependencies required for the Tetris game project to run properly.
+
+# GUI Library
+tkinter
+
+# Additional Dependencies
+numpy==1.19.2
+pandas>=1.1.4

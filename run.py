@@ -17,7 +17,7 @@ import os
 import sys
 
 from camel.typing import ModelType
-
+from AutoGen1.requirements_definition import Requirements_Definition
 root = os.path.dirname(__file__)
 sys.path.append(root)
 
@@ -101,11 +101,17 @@ args2type = {'GPT_3_5_TURBO': ModelType.GPT_3_5_TURBO,
 if openai_new_api:
     args2type['GPT_3_5_TURBO'] = ModelType.GPT_3_5_TURBO_NEW
 
+
+requirements_definition=Requirements_Definition(task_input=args.task)
+
+name, task = requirements_definition.conversation()
+
+
 chat_chain = ChatChain(config_path=config_path,
                        config_phase_path=config_phase_path,
                        config_role_path=config_role_path,
-                       task_prompt=args.task,
-                       project_name=args.name,
+                       task_prompt=task,
+                       project_name=name,
                        org_name=args.org,
                        model_type=args2type[args.model],
                        code_path=args.path)
@@ -134,6 +140,8 @@ chat_chain.make_recruitment()
 # ----------------------------------------
 
 chat_chain.execute_chain()
+print("これがchat_env")
+print(chat_chain.chat_env.__dict__)
 
 # ----------------------------------------
 #          Post Processing
